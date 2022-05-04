@@ -17,7 +17,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from torch.autograd import Function
-
+## implementation of domain adversarial traning based on the dalib codebase. For more details, please visit: https://dalib.readthedocs.io/en/latest/index.html
 def binary_accuracy(output: torch.Tensor, target: torch.Tensor) -> float:
     """Computes the accuracy for binary classification"""
     with torch.no_grad():
@@ -49,30 +49,15 @@ class GradientReverseLayer(nn.Module):
 
 
 class WarmStartGradientReverseLayer(nn.Module):
-    """Gradient Reverse Layer :math:`\mathcal{R}(x)` with warm start
-
-        The forward and backward behaviours are:
-
-        .. math::
-            \mathcal{R}(x) = x,
-
-            \dfrac{ d\mathcal{R}} {dx} = - \lambda I.
-
-        :math:`\lambda` is initiated at :math:`lo` and is gradually changed to :math:`hi` using the following schedule:
-
-        .. math::
-            \lambda = \dfrac{2(hi-lo)}{1+\exp(- α \dfrac{i}{N})} - (hi-lo) + lo
-
-        where :math:`i` is the iteration step.
-
+    """
         Parameters:
-            - **alpha** (float, optional): :math:`α`. Default: 1.0
-            - **lo** (float, optional): Initial value of :math:`\lambda`. Default: 0.0
-            - **hi** (float, optional): Final value of :math:`\lambda`. Default: 1.0
-            - **max_iters** (int, optional): :math:`N`. Default: 1000
-            - **auto_step** (bool, optional): If True, increase :math:`i` each time `forward` is called.
+            - alpha (float, optional): :math:`α`. Default: 1.0
+            - lo (float, optional): Initial value of :math:`\lambda`. Default: 0.0
+            - hi (float, optional): Final value of :math:`\lambda`. Default: 1.0
+            - max_iters (int, optional): :math:`N`. Default: 1000
+            - auto_step (bool, optional): If True, increase :math:`i` each time `forward` is called.
               Otherwise use function `step` to increase :math:`i`. Default: False
-        """
+    """
 
     def __init__(self, alpha: Optional[float] = 1.0, lo: Optional[float] = 0.0, hi: Optional[float] = 1.,
                  max_iters: Optional[int] = 1000., auto_step: Optional[bool] = False):
@@ -100,19 +85,11 @@ class WarmStartGradientReverseLayer(nn.Module):
 
 
 class DomainAdversarialLoss(nn.Module):
-    r"""The `Domain Adversarial Loss <https://arxiv.org/abs/1505.07818>`_
-
-    Domain adversarial loss measures the domain discrepancy through training a domain discriminator.
-    Given domain discriminator :math:`D`, feature representation :math:`f`, the definition of DANN loss is
-
-    .. math::
-        loss(\mathcal{D}_s, \mathcal{D}_t) &= \mathbb{E}_{x_i^s \sim \mathcal{D}_s} log[D(f_i^s)] \\
-        &+ \mathbb{E}_{x_j^t \sim \mathcal{D}_t} log[1-D(f_j^t)].\\
-
+    r"""
     Parameters:
-        - **domain_discriminator** (class:`nn.Module` object): A domain discriminator object, which predicts
+        - domain_discriminator (class:`nn.Module` object): A domain discriminator object, which predicts
           the domains of features. Its input shape is (N, F) and output shape is (N, 1)
-        - **reduction** (string, optional): Specifies the reduction to apply to the output:
+        - reduction (string, optional): Specifies the reduction to apply to the output:
           ``'none'`` | ``'mean'`` | ``'sum'``. ``'none'``: no reduction will be applied,
           ``'mean'``: the sum of the output will be divided by the number of
           elements in the output, ``'sum'``: the output will be summed. Default: ``'mean'``
