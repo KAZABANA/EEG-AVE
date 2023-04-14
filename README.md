@@ -21,14 +21,12 @@ Cross-Individual Affective Detection Using EEG Signals with Audio-Visual Embeddi
 * The implementation code of domain adversarial training is bulit on the [dalib](https://dalib.readthedocs.io/en/latest/index.html) code base 
 # Citation
 If you find our work helps your research, please kindly consider citing our paper in your publications.
-@article {Liang2021.08.06.455362,
-	author = {Liang, Zhen and Zhang, Xihao and Zhou, Rushuang and Zhang, Li and Li, Linling and Huang, Gan and Zhang, Zhiguo},
-	title = {Cross-Individual Affective Detection Using EEG Signals with Audio-Visual Embedding},
-	elocation-id = {2021.08.06.455362},
-	year = {2022},
-	doi = {10.1101/2021.08.06.455362},
-	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2022/03/02/2021.08.06.455362},
-	eprint = {https://www.biorxiv.org/content/early/2022/03/02/2021.08.06.455362.full.pdf},
-	journal = {bioRxiv}
+@article{liang2022cross,
+  title={Cross-individual affective detection using EEG signals with audio-visual embedding},
+  author={Liang, Zhen and Zhang, Xihao and Zhou, Rushuang and Zhang, Li and Li, Linling and Huang, Gan and Zhang, Zhiguo},
+  journal={Neurocomputing},
+  volume={510},
+  pages={107--121},
+  year={2022},
+  publisher={Elsevier}
 }
